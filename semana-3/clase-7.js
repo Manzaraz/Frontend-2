@@ -7,18 +7,18 @@ const albumesFamosos = [
     like: true,
   },
   {
-    id: "y456",
-    nombre: "Thriller",
-    imagen:
-      "https://img.discogs.com/LfnH5tbhcZ4xRMNLAodIyvea9xA=/fit-in/600x600/filters:strip_icc():format(webp):mode_rgb():quality(90)/discogs-images/R-294033-1151290881.jpeg.jpg",
-    like: true,
-  },
-  {
     id: "z789",
     nombre: "The wall",
     imagen:
       "https://img.discogs.com/EbLYco6R1A-5Z7QJ4t4O1JSzsM8=/fit-in/587x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-4620059-1370165707-3841.jpeg.jpg",
     like: false,
+  },
+  {
+    id: "y456",
+    nombre: "Thriller",
+    imagen:
+      "https://img.discogs.com/LfnH5tbhcZ4xRMNLAodIyvea9xA=/fit-in/600x600/filters:strip_icc():format(webp):mode_rgb():quality(90)/discogs-images/R-294033-1151290881.jpeg.jpg",
+    like: true,
   },
   {
     id: "a987",
@@ -43,15 +43,47 @@ const albumesFamosos = [
   },
 ];
 
+const nombreUsuario = document.querySelector("#nombreUsuario");
+const covers = document.querySelector(".covers");
+
+// console.log(nombreUsuario, covers);
+
 /*                  [1] FUNCION: captar el nombre de usuario                  */
 
-function obtenerUsuario() {}
+function obtenerUsuario() {
+  let usuario = "";
+  let contadorLikes;
+  do {
+    usuario = prompt("Ingrese nombre de usuario:");
+  } while (
+    usuario === null ||
+    usuario === "" ||
+    !isNaN(usuario) ||
+    usuario.length < 4
+  );
+  //   nombreUsuario.innerText = usuario;
+  nombreUsuario.textContent = usuario.toUpperCase();
+}
 // obtenerUsuario();
 
 /*                [2] FUNCION: renderizar tarjetas del almbumes               */
 /* -------------------------------------------------------------------------- */
 //forEach, template strings, innerHTML
-function renderizarAlbumes(listado) {}
+function renderizarAlbumes(listado) {
+  listado.forEach((album) => {
+    // console.log(album.nombre);
+    covers.innerHTML += `
+    <li data-id="${album.id}">
+        <img src="${album.imagen}" alt="${album.nombre}">
+        <p>${album.nombre}}</p>
+        <i id="123sds" class="fa fa-heart ${
+          album.like == true ? "favorito" : ""
+          //   album.like == true && "favorito"
+        }"></i>
+      </li>
+      `;
+  });
+}
 
 renderizarAlbumes(albumesFamosos);
 
