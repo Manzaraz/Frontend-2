@@ -42,3 +42,31 @@ const albumesFamosos = [
     like: false,
   },
 ];
+
+/*                  [1] FUNCION: captar el nombre de usuario                  */
+
+function obtenerUsuario() {}
+// obtenerUsuario();
+
+/*                [2] FUNCION: renderizar tarjetas del almbumes               */
+/* -------------------------------------------------------------------------- */
+//forEach, template strings, innerHTML
+function renderizarAlbumes(listado) {}
+
+renderizarAlbumes(albumesFamosos);
+
+/* ----------------------------- MESA DE TRABAJO ---------------------------- */
+/* 
+/*                   [3] FUNCION: mostrar datos del usuario                   */
+
+// Dentro del div '.perfil' tenemos un parrafo con 2 span en los que debemos colocar
+// correctamente su contenido.
+// Para eso debemos hacer ciertos calculos y colocar esa info en el HTML. Debemos:
+// 1- contar la cantidad de albumes del array y pintarlo en el span correspondiente
+// 2- contar la cantidad de favoritos y pintarlo en el span correspondiente
+// 3- tener en cuenta: usar las palabra en plural o en singular, según cuando
+// sea necesario ( es decir: 1 album, 1 favorito / 2 albumes, 3 favoritos )
+function mostrarDatosEnPerfil() {
+  // desarrollar la función 👇
+}
+mostrarDatosEnPerfil();
