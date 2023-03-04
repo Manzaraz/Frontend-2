@@ -43,26 +43,24 @@ const albumesFamosos = [
   },
 ];
 
-const nombreUsuario = document.querySelector("#nombreUsuario");
+const nombreUsuario = document.getElementById("nombreUsuario");
 const covers = document.querySelector(".covers");
-
-// console.log(nombreUsuario, covers);
 
 /*                  [1] FUNCION: captar el nombre de usuario                  */
 
 function obtenerUsuario() {
   let usuario = "";
-  let contadorLikes;
+
   do {
-    usuario = prompt("Ingrese nombre de usuario:");
+    usuario = prompt("Ingrese nombre:");
   } while (
     usuario === null ||
     usuario === "" ||
-    !isNaN(usuario) ||
-    usuario.length < 4
+    usuario.length < 4 ||
+    !isNaN(usuario)
   );
-  //   nombreUsuario.innerText = usuario;
-  nombreUsuario.textContent = usuario.toUpperCase();
+
+  nombreUsuario.innerText = usuario.toUpperCase();
 }
 // obtenerUsuario();
 
@@ -71,17 +69,44 @@ function obtenerUsuario() {
 //forEach, template strings, innerHTML
 function renderizarAlbumes(listado) {
   listado.forEach((album) => {
-    // console.log(album.nombre);
-    covers.innerHTML += `
-    <li data-id="${album.id}">
-        <img src="${album.imagen}" alt="${album.nombre}">
-        <p>${album.nombre}}</p>
-        <i id="123sds" class="fa fa-heart ${
-          album.like == true ? "favorito" : ""
-          //   album.like == true && "favorito"
-        }"></i>
-      </li>
-      `;
+    /* ------------------------- Modo Template Literals ------------------------- */
+    // covers.innerHTML += `
+    //   <li data-id="${album.id}">
+    //     <img src="${album.imagen}" alt="${album.nombre}">
+    //     <p>${album.nombre}</p>
+    //     <i id="123sds" class="fa fa-heart ${
+    //       // (function () {
+    //       //   if (album.like) return "favorito";
+    //       // })() // pasando un if-else a través de una funcion autoinvocada como Callback
+    //       // album.like ? "favorito" : "" // Usando Operador Ternario
+    //       // album.like && "favorito"  || "" // Usando Operador de "cortocircuito" AND y OR
+    //       album.like && "favorito" // Usando sólamente el AND
+    //     } "></i>
+    //   </li>
+    // `;
+
+    /* ------------------------- Modo Creación de Nodos ------------------------- */
+    // // Creo los nodos (li es el padre, los demás serán los child de li)
+    const li = document.createElement("li");
+    const img = document.createElement("img");
+    const p = document.createElement("p");
+    const i = document.createElement("i");
+
+    // Cargo los Atributos a cada nodo
+    li.classList.add(album.id);
+    img.setAttribute("src", album.imagen);
+    img.setAttribute("alt", album.nombre);
+    p.textContent = album.nombre;
+
+    // Agrego una clase usando setAttribute
+    i.setAttribute(
+      "class",
+      album.like ? "fa fa-heart favorito" : "fa fa-heart"
+    );
+    li.appendChild(img);
+    li.appendChild(p);
+    li.appendChild(i);
+    covers.appendChild(li);
   });
 }
 
@@ -98,7 +123,52 @@ renderizarAlbumes(albumesFamosos);
 // 2- contar la cantidad de favoritos y pintarlo en el span correspondiente
 // 3- tener en cuenta: usar las palabra en plural o en singular, según cuando
 // sea necesario ( es decir: 1 album, 1 favorito / 2 albumes, 3 favoritos )
-function mostrarDatosEnPerfil() {
+function mostrarDatosEnPerfil(arr) {
   // desarrollar la función 👇
+
+  /* ------------------------ Usando ForEach  (Por: JDiego Parula - Equipo 1)------------------------ */
+  const cantAlbum = document.querySelector("#cant-albums");
+  const cantfavorite = document.querySelector("#cant-favoritos");
+  console.log(cantfavorite);
+
+  console.log(cantAlbum);
+  let totalAlbum = 0;
+  let totalFav = 0;
+
+  albumesFamosos.forEach((album) => {
+    totalAlbum++;
+    if (album.like === true) {
+      totalFav++;
+    }
+    console.log(totalFav);
+  });
+  if (totalAlbum >= 1) {
+    cantAlbum.textContent = totalAlbum + " álbumes";
+  } else {
+    cantAlbum.textContent = totalAlbum + " álbum";
+  }
+  if (totalFav >= 1) {
+    cantfavorite.textContent = totalFav + " favoritos";
+  } else {
+    cantfavorite.textContent = totalFav + " favorito";
+  }
+
+  /* -------------------------- Final alternativo ------------------------- */
+  // const albums = document.querySelector("#cant-albums");
+  // const favoritos = document.querySelector("#cant-favoritos");
+
+  // let cantAlbums = arr.length;
+  // let cantFavoritos = arr.filter((a) => a.like == true).length; // Un enfoque diferente usando filter para crear un nuevo array con sólo los objetos que poseen la propiedad .like = true, finalizando con el .length para contar la cantidad de elementos del nuevo array
+  // let albumsTxt = "";
+  // let favoritosTxt = "";
+  // cantAlbums == 1
+  //   ? (albumsTxt = "1 álbum")
+  //   : (albumsTxt = `${cantAlbums} álbumes`);
+  // cantFavoritos == 1
+  //   ? (favoritosTxt = "1 favorito")
+  //   : (favoritosTxt = `${cantFavoritos} favoritos`);
+  // albums.textContent = albumsTxt;
+  // favoritos.textContent = favoritosTxt;
 }
-mostrarDatosEnPerfil();
+
+mostrarDatosEnPerfil(albumesFamosos);
