@@ -12,7 +12,6 @@ function marcarFavorito() {
     boton.addEventListener("click", function () {
       // console.log(this.id);
       // console.log(boton.id);
-      let id = boton.id;
 
       // recorramos el listado de los albumos
       albumesFamosos.forEach((album) => {
@@ -20,13 +19,12 @@ function marcarFavorito() {
         if (album.id === boton.id) {
           album.like = !album.like;
         }
-
         console.log(album);
       });
-      // post click debemos renderizar nuevamente las tarjetas al hacer click
       // console.log(boton.id);
+      //👇 Después de hacer click en el 💚  debemos renderizar nuevamente las tarjetas
       renderizarAlbumes(albumesFamosos);
-      // agregegar un listener a cada boton
+      //👇 Despues de hacer click debemos agregar el listener a cada nuevo boton otra vez ya que el renderizado eliminó lo anterior
       marcarFavorito();
     });
   });
@@ -51,5 +49,31 @@ marcarFavorito();
 
 function eliminarAlbum() {
   // desarrollar la función 👇
+
+  // Es siempre buena práctica trabajar los eventos sobre una constante capturada, por eso asigno el evento al body
+  const body = document.querySelector("body");
+
+  body.addEventListener("keydown", (e) => {
+    // console.log(e); // consulto el evento
+    console.log(e.code); // la propiedad "code" me permite consultar sin distinguir entre mayúsculas o minúsculas
+    if (e.code == "KeyF") {
+      let albumAEliminar = prompt(
+        "Ingresa el nombre del álbum que quieres borrar"
+      ).toLowerCase();
+      //   console.log(albumAEliminar);
+
+      //   uso el método findIndex para encontrar el indice del objetivo a eliminar. del mismo modo que un filter()
+      const indexObjetivo = albumesFamosos.findIndex(
+        (album) => album.nombre.toLowerCase() == albumAEliminar
+      );
+      console.log(indexObjetivo); // observo que si encuentro el index, me devuelve el numero correspondiente; sino me devuelve -1
+
+      // Si encuentro el parámetro me va a devolver un index, caso contrario me devuelve -1. Por eso pregunto si el indexObjetivo == -1 en el caso que no lo haya encontrado
+      indexObjetivo == -1
+        ? alert("Álbum no encontrado")
+        : albumesFamosos.splice(indexObjetivo, 1); // El método splice() me elimina el index y en el segundo parámetro especifico cuantos elementos elimino despues de ese index 👉🏼 https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_splice2
+    }
+    renderizarAlbumes(albumesFamosos);
+  });
 }
 eliminarAlbum();
