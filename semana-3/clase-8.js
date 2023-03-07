@@ -60,7 +60,7 @@ function eliminarAlbum() {
       let albumAEliminar = prompt(
         "Ingresa el nombre del álbum que quieres borrar"
       ).toLowerCase();
-      //   console.log(albumAEliminar);
+      console.log(albumAEliminar);
 
       //   uso el método findIndex para encontrar el indice del objetivo a eliminar. del mismo modo que un filter()
       const indexObjetivo = albumesFamosos.findIndex(

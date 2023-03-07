@@ -19,6 +19,36 @@ const planesMensuales = [
 
 // Escuchamos el evento de 'carga' de la ventana 👇
 
+window.addEventListener("load", function () {
+  const footer = document.querySelector("footer");
+  //   console.log(footer);
+
+  // Creamos varialbes para usarlas dentro del bucle que genera el setInterval
+  let total = planesMensuales.length;
+  let contador = 0;
+
+  // Creo el intervalo y lo almaceno dentro de una variable
+  const intervalo = setInterval(() => {
+    const posicion = contador % 3;
+
+    console.log(contador);
+    console.log(`Posición: ${posicion}`);
+
+    // Insertamos en el html un template literal
+    footer.innerHTML = `<p>Plan: <strong>${planesMensuales[posicion].tipo}</strong> $ ${planesMensuales[posicion].costo}</p><p>${planesMensuales[posicion].descripcion}</p>`;
+
+    contador++;
+  }, 3000);
+
+  footer.addEventListener("click", function () {
+    clearInterval(intervalo);
+    console.log("👉🏼 Frenamos el intervalos");
+    footerelement.addEventListener("mousedown", handleMouseDown, {
+      passive: true,
+    });
+  });
+});
+
 /* -------------------------------------------------------------------------- */
 /*                               MESA DE TRABAJO                              */
 /* -------------------------------------------------------------------------- */
