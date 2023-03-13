@@ -59,10 +59,10 @@ form.addEventListener("submit", function (evento) {
   console.log(errores);
 
   // mostrar los errores presentes
-  renderizarErroes(errores);
+  renderizarErrores(errores);
 
   // mostrar mensajes en clase de éxito
-  renderizarErroes(errores);
+  mostrarMensajeExito(errores);
 
   // Vaciar el formulario
   form.reset();
