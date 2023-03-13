@@ -18,34 +18,32 @@ const planesMensuales = [
 ];
 
 // Escuchamos el evento de 'carga' de la ventana 👇
-
-window.addEventListener("load", function () {
+window.addEventListener("load", () => {
   const footer = document.querySelector("footer");
-  //   console.log(footer);
+  console.log(footer);
 
-  // Creamos varialbes para usarlas dentro del bucle que genera el setInterval
+  // Crear variables para usarlas dentro del bucle que genera el carrusel a traves del setInterval()
   let total = planesMensuales.length;
   let contador = 0;
 
-  // Creo el intervalo y lo almaceno dentro de una variable
+  // Creo un intervalo y lo almaceno dentro de una variable
   const intervalo = setInterval(() => {
-    const posicion = contador % 3;
+    // genero un interador para calcular la posicion actual
+    const posicion = contador % total;
 
     console.log(contador);
-    console.log(`Posición: ${posicion}`);
+    console.log(`Posicion: ${posicion}`);
 
-    // Insertamos en el html un template literal
-    footer.innerHTML = `<p>Plan: <strong>${planesMensuales[posicion].tipo}</strong> $ ${planesMensuales[posicion].costo}</p><p>${planesMensuales[posicion].descripcion}</p>`;
+    // insertar en el HTML un template literal
+    footer.innerHTML = `<p>Plan: <strong>${planesMensuales[posicion].tipo}</strong> $${planesMensuales[posicion].costo}</p><p>${planesMensuales[posicion].descripcion}</p>`;
 
     contador++;
   }, 3000);
 
+  // Añadir un listener del  dobleClick , en el footer para frenar el intervalo.
   footer.addEventListener("click", function () {
     clearInterval(intervalo);
-    console.log("👉🏼 Frenamos el intervalos");
-    footerelement.addEventListener("mousedown", handleMouseDown, {
-      passive: true,
-    });
+    console.log("🛑 Frenamos el intervalo 🏆");
   });
 });
 
@@ -59,3 +57,20 @@ window.addEventListener("load", function () {
 // 3- Si el usuario cancela debemos agregar un parrafo dentro del div '#perfil'(sin eliminar nada dentro)
 // 4- El parrafo agregado debe ser de color verde y decir: "Usuario oficial de Spotifront"
 // 5- Por ultimo, si ese parrafo es clickeado, debe mostrar una alerta al usuario que diga: "Gracias por confiar en nosotros."
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    let conocer_mas_musica = confirm("Desea conocer mas musica?");
+    if (conocer_mas_musica) {
+      window.open("https://open.spotify.com/", "_blank");
+    } else {
+      document.querySelector(
+        ".perfil"
+      ).innerHTML += `<p class="nuevoParrafo" style="color:green;">Usuario oficial de Spotifront</p>`;
+      document
+        .querySelector(".nuevoParrafo")
+        .addEventListener("click", () =>
+          alert("Gracias por confiar en nosotros.")
+        );
+    }
+  }, 12000);
+});
